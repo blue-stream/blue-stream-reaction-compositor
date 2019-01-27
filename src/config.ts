@@ -15,11 +15,6 @@ export const config = {
             hostname: process.env.VIDEOS_HOST || 'http://localhost',
             api: process.env.USERS_API || '/api/video',
         },
-        channels: {
-            port: +(process.env.CHANNELS_PORT || 5006),
-            hostname: process.env.CHANNELS_HOST || 'http://localhost',
-            api: process.env.USERS_API || '/api/channel',
-        },
     },
     server: {
         port: +(process.env.SERVER_PORT || 3000),
