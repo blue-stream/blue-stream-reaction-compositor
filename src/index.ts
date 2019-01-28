@@ -1,18 +1,16 @@
+import { AppProxyRouter } from './proxyRouter';
+
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import { syslogSeverityLevels } from 'llamajs';
 
 import { config } from './config';
 import { AppRouter } from './router';
-import { AppProxyRouter } from './proxyRouter';
 import { Authenticator } from './utils/authenticator';
 import { Logger } from './utils/logger';
 import { unknownErrorHandler, errorHandler } from './utils/errors/errorHandler';
 
 const server = express();
-
-server.use(AppRouter);
-server.use(AppProxyRouter);
 
 server.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
     const origin = req.headers.origin as string;
@@ -44,8 +42,8 @@ if (config.authentication.required) {
 
 server.use(bodyParser.json());
 server.use(bodyParser.urlencoded({ extended: true }));
-
-
+server.use(AppRouter);
+server.use(AppProxyRouter);
 
 server.use(errorHandler);
 server.use(unknownErrorHandler);
