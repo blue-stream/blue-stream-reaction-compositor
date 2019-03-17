@@ -2,12 +2,11 @@ import { AppProxyRouter } from './proxyRouter';
 
 import * as express from 'express';
 import * as bodyParser from 'body-parser';
-import { syslogSeverityLevels } from 'llamajs';
 
 import { config } from './config';
 import { AppRouter } from './router';
 import { Authenticator } from './utils/authenticator';
-import { Logger } from './utils/logger';
+import { log } from './utils/logger';
 import { unknownErrorHandler, errorHandler } from './utils/errors/errorHandler';
 
 const server = express();
@@ -44,9 +43,7 @@ server.use(AppProxyRouter);
 server.use(errorHandler);
 server.use(unknownErrorHandler);
 
-Logger.configure();
-
-Logger.log(syslogSeverityLevels.Informational, 'Compositor Started', `Port: ${config.server.port}`);
+log('verbose' , 'Compositor Started', `Port: ${config.server.port}`);
 console.log(`${config.server.name} running on port ${config.server.port}`);
 
 server.listen(config.server.port);
