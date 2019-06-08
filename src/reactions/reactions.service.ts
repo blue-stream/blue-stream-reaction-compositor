@@ -11,4 +11,8 @@ export class ReactionsService {
     static getReactionAmountByTypeAndResourceType(query: any, authorizationHeader: string) {
         return HttpClient.get(`${ReactionsService.api}/reaction/amount`, query, authorizationHeader);
     }
+
+    static getMany(query: any, authorizationHeader: string) {
+        return HttpClient.get(`${ReactionsService.api}/many`, query, authorizationHeader);
+    }
 }
