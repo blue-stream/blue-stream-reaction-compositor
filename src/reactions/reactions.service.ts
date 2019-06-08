@@ -7,4 +7,8 @@ export class ReactionsService {
     static create(body: any, authorizationHeader: string) {
         return HttpClient.post(`${ReactionsService.api}`, body, authorizationHeader);
     }
+
+    static getReactionAmountByTypeAndResourceType(query: any, authorizationHeader: string) {
+        return HttpClient.get(`${ReactionsService.api}/reaction/amount`, query, authorizationHeader);
+    }
 }
