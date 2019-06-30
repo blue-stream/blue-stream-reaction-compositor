@@ -20,16 +20,16 @@ export class ReactionsController {
     static async getReactionAmountByTypeAndResourceType(req: Request, res: Response) {
         const resourceReactions: any[] = await ReactionsService.getReactionAmountByTypeAndResourceType(req.query, req.headers.authorization!);
 
-        res.json(await ReactionsController.popolateVideos(resourceReactions, req.user));
+        res.json(await ReactionsController.populateVideos(resourceReactions, req.user));
     }
 
     static async getUserLikedVideos(req: Request, res: Response) {
         const reactions: any[] = await ReactionsService.getMany(req.query, req.headers.authorization!);
 
-        res.json(await ReactionsController.popolateVideos(reactions, req.user));
+        res.json(await ReactionsController.populateVideos(reactions, req.user));
     }
 
-    private static async popolateVideos(reactions: any[], user: any) {
+    private static async populateVideos(reactions: any[], user: any) {
         const videosIds = reactions.map((reaction: any) => reaction.resource);
         const videosMap = await VideosRpc.getVideos(videosIds, user.id).catch((error) => {
             log('warn', 'Video Rpc request failed - getVideos', error.message, '', user ? user.id : 'unknown', { error });
@@ -50,7 +50,7 @@ export class ReactionsController {
                 };
             });
 
-            return reactionWithResource
+        return reactionWithResource
             .map((reaction) => {
                 return {
                     ...reaction,
