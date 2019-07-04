@@ -42,11 +42,13 @@ export class ReactionsController {
             return [];
         });
 
-        const reactionWithResource = reactions
+        const filteredReactions = reactions.filter(reaction => videosMap[reaction.resource]);
+
+        const reactionWithResource = filteredReactions
             .map((reaction) => {
                 return {
                     ...reaction,
-                    resource: videosMap[reaction.resource] || reaction.resource,
+                    resource: videosMap[reaction.resource],
                 };
             });
 
